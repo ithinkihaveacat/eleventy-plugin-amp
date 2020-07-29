@@ -47,7 +47,7 @@ async function maybeDownloadAmpRuntime(optimizerConfig) {
   const runtimeParams = await fetchRuntimeParams(optimizerConfig);
   const ampRuntimePath = path.join('/rtv', runtimeParams.ampRuntimeVersion);
   runtimeParams.ampUrlPrefix = createAmpUrlPrefix(optimizerConfig, ampRuntimePath);
-  downloadRuntime(runtimeParams.ampRuntimeVersion, optimizerConfig.dir.output, ampRuntimePath);
+  await downloadRuntime(runtimeParams.ampRuntimeVersion, optimizerConfig.dir.output, ampRuntimePath);
   return runtimeParams;
 }
 
@@ -64,7 +64,7 @@ async function downloadRuntime(ampRuntimeVersion, ouputDir, ampUrlPrefix) {
     // runtime already downloaded
     return;
   }
-  fetchRuntime.getRuntime({
+  return fetchRuntime.getRuntime({
     rtv: ampRuntimeVersion,
     dest: ouputDir,
   });
